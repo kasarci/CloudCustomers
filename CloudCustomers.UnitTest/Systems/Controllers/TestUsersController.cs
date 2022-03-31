@@ -44,4 +44,21 @@ public class TestUsersController {
         // Assert
         mockUserService.Verify(service => service.GetAllUsers(), Times.Once);
     }
+
+    [Fact]
+    public async Task Get_OnSuccess_ReturnsListOfUsers() {
+        // Arrange
+        var mockUserService = new Mock<IUserService>();
+        mockUserService
+            .Setup(service => service.GetAllUsers())
+            .ReturnsAsync(new List<User>());
+
+        var userController = new UsersController(mockUserService.Object);
+        
+        //Act
+        var result = (ObjectResult) await userController.Get();
+        
+        //Assert
+        result.Value.Should().BeOfType<List<User>>("Get method of the user controller should return the list of users.");
+    }
 }
