@@ -10,6 +10,5 @@ public class UserService : IUserService{
 }
 
 public interface IUserService {
-    
     public Task<List<User>> GetAllUsers();
 }
