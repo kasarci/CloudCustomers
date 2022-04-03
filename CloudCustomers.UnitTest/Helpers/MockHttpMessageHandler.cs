@@ -15,6 +15,17 @@ internal static class MockHttpMessageHandler<T> {
         var mockResponse = new HttpResponseMessage(HttpStatusCode.OK) {
             Content = new StringContent(JsonConvert.SerializeObject(expectedResponse))
         };
+        return CreateMockMessageHandler(mockResponse);
+    }
+    
+    internal static Mock<HttpMessageHandler> SetupReturn404 () {
+        var mockResponse = new HttpResponseMessage(HttpStatusCode.NotFound) {
+            Content = new StringContent(JsonConvert.SerializeObject(""))
+        };
+        return CreateMockMessageHandler(mockResponse);
+    }
+
+    private static Mock<HttpMessageHandler> CreateMockMessageHandler(HttpResponseMessage mockResponse) {
         mockResponse.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
         var MockMessageHandler = new Mock<HttpMessageHandler>();
