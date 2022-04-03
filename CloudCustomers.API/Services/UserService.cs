@@ -12,7 +12,7 @@ public class UserService : IUserService {
     }
 
     public async Task<List<User>> GetAllUsers() {
-        var response = await _httpClient.GetAsync("https://test.com");
+        var response = await _httpClient.GetAsync("https://jsonplaceholder.typicode.com/users");
         if (response.StatusCode == HttpStatusCode.NotFound) {
             return new List<User>();    
         }
